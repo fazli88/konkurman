@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>پاسخبرگ دیجیتال کنکور من</title>
+<style>
+:root{--bg:#f2f5fa;--ink:#172235;--muted:#718096;--line:#e1e7f0;--blue:#2459a6;--green:#16845b;--red:#d04444}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.65}
+header{background:linear-gradient(135deg,#101827,#203b60);color:#fff;padding:23px 16px}
+.wrap{max-width:760px;margin:auto;padding:0 12px}header .wrap{padding:0 12px}
+h1{font-size:clamp(21px,5vw,29px);margin:0 0 4px}header p{margin:0;color:#cbd7e8;font-size:12px}
+main{padding:15px 0 35px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:13px;box-shadow:0 5px 20px #15233b08}
+h2{font-size:16px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+input,select{width:100%;min-height:43px;border:1px solid #d8e0ec;border-radius:10px;padding:8px 10px;background:#fff;color:var(--ink);font:inherit;font-size:14px}
+button{font:inherit;cursor:pointer}.action{border:0;border-radius:10px;padding:12px 17px;font-weight:bold}
+.primary{background:var(--blue);color:#fff}.secondary{background:#eaf0fb;color:#23436d}.full{width:100%;margin-top:15px}
+.page{display:none}.page.active{display:block}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.pill{background:#edf3ff;color:#2455a2;border-radius:30px;padding:5px 10px;font-size:11px}
+.instruction{font-size:12px;color:var(--muted);margin:0 0 12px}
+.timer-panel{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#eef4ff;border:1px solid #d9e6fb;border-radius:12px;padding:10px 12px;margin:0 0 12px}
+.timer-panel strong{font-size:22px;color:#214f91;font-variant-numeric:tabular-nums;direction:ltr;display:inline-block}
+.timer-panel small{display:block;color:var(--muted);font-size:10px}
+.timer-panel.expired{background:#fff0f0;border-color:#f2caca}.timer-panel.expired strong{color:var(--red)}
+.timer-config{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:10px;padding:10px;border:1px dashed #d8e0ec;border-radius:11px}
+.timer-config input[type=checkbox]{width:18px;min-height:18px;accent-color:var(--blue)}
+.timer-config .seconds-input{width:105px;min-height:38px}
+.timer-config label{margin:0;color:var(--ink)}
+.timer-summary{font-size:11px;color:var(--muted);width:100%}
+.answer-list{display:flex;flex-direction:column;gap:7px}
+.answer-row{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:11px;padding:7px 9px;background:#fff;min-height:49px}.edu-extra{display:none;align-items:center;gap:7px;flex-wrap:wrap;padding:7px 10px 9px;border-top:1px dashed var(--line)}.edu-row-wrap.educational .edu-extra{display:flex}.level-btn{border:1px solid #cbd5e1;border-radius:8px;padding:5px 13px;background:#fff;font-weight:bold}.level-btn.a.active{background:#dbeafe;border-color:#2563eb;color:#1d4ed8}.level-btn.b.active{background:#fee2e2;border-color:#dc2626;color:#b91c1c}.explain-toggle{background:#f3f4f6;border:1px solid #d1d5db;border-radius:8px;padding:5px 10px}.explain-box{display:none;width:100%;margin-top:5px}.explain-box.open{display:block}.explain-box textarea{width:100%;min-height:65px;border:1px solid #cbd5e1;border-radius:9px;padding:8px;font:inherit}.edu-row-wrap{border:1px solid var(--line);border-radius:11px;background:#fff}.edu-row-wrap .answer-row{border:0;border-radius:0}.edu-row-wrap.level-a{border-right:4px solid #2563eb}.edu-row-wrap.level-b{border-right:4px solid #dc2626}
+.number{width:42px;min-width:42px;text-align:center;font-weight:bold;font-size:14px;color:#243b5a;border-left:1px solid var(--line);padding-left:8px}
+.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;flex:1}
+.opt{border:1px solid #dce3ed;background:#fff;color:#4d5b70;border-radius:9px;min-height:34px;padding:3px 0;font-size:14px;font-weight:bold}
+.opt.selected{background:#2459a6;border-color:#2459a6;color:#fff}
+.key-mode .opt.selected{background:var(--green);border-color:var(--green);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.stat{background:#f4f7fb;border-radius:11px;padding:10px 5px;text-align:center}
+.stat b{display:block;font-size:21px}.stat span{font-size:10px;color:var(--muted)}
+.scoreline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;padding:11px;border-radius:11px;background:#eef4ff}
+.scoreline strong{font-size:21px;color:#1d4f91}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.report-sheet{border:1px solid #dce3ed;border-radius:13px;padding:10px;background:#fbfcfe;margin-top:13px}
+.report-sheet-head{display:flex;justify-content:space-between;align-items:center;margin:0 2px 9px;font-size:12px;font-weight:bold;color:#43536b}
+.report-row{display:flex;align-items:center;gap:8px;padding:5px 6px;border-bottom:1px solid #e9edf3;min-height:39px}
+.report-row:last-child{border-bottom:0}
+.report-number{width:38px;min-width:38px;text-align:center;font-size:12px;font-weight:bold;color:#34445c}
+.report-options{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;flex:1}
+.report-option{display:flex;align-items:center;justify-content:center;gap:3px;min-height:29px;border:1px solid transparent;border-radius:8px;font-size:12px;color:#788497}
+.mark{width:23px;height:23px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:bold;line-height:1}
+.mark.correct{background:var(--green);color:#fff}
+.mark.wrong{background:var(--red);color:#fff}
+.mark.key{background:#fff;color:var(--green);border:2px solid var(--green)}
+.report-legend{display:flex;flex-wrap:wrap;gap:8px 13px;margin:10px 2px 1px;font-size:10px;color:#58677c}
+.legend-item{display:flex;align-items:center;gap:5px}
+footer{text-align:center;color:var(--muted);font-size:10px;padding:10px}
+@media(max-width:360px){.answer-row{gap:6px;padding:6px}.number{width:35px;min-width:35px;font-size:12px}.options{gap:4px}.opt{min-height:32px}.report-row{gap:4px;padding:4px}.report-number{width:31px;min-width:31px}.report-option{gap:2px}.mark{width:21px;height:21px}}
+@media print{
+  *{background:#fff!important;color:#111!important} .report-sheet{break-inside:auto!important} .report-row{break-inside:avoid!important} #comparisonRows{display:block} .report-row:nth-child(40n){break-after:page}
+ body{background:#fff;color:#111}header{background:#fff;color:#111;padding:0 0 8px;border-bottom:2px solid #222}
+ header p,.no-print,footer{display:none!important}.wrap{max-width:none;padding:0}main{padding:0}
+ .card{box-shadow:none;border:0;padding:7px 0;margin:0}.page{display:none!important}#reportPage{display:block!important}
+ .stats{grid-template-columns:repeat(4,1fr)}.stat{border:1px solid #bbb;background:#fff}
+ .scoreline{background:#fff;border:1px solid #bbb}
+ .report-sheet{break-inside:avoid;border:1px solid #888;background:#fff}
+ .report-row{break-inside:avoid;border-color:#ddd}
+ .mark.correct{background:#16845b!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .mark.wrong{background:#d04444!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .mark.key{background:#fff!important;color:#16845b!important;border:2px solid #16845b!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+.app-nav .action{padding:9px 5px;font-size:12px}.mini-card{border:1px solid var(--line);border-radius:11px;padding:10px;margin:7px 0;background:#fff}.bar-wrap{display:flex;flex-direction:column;justify-content:end;align-items:center;height:120px;gap:4px;font-size:10px;color:var(--muted)}.bar{width:70%;max-width:28px;background:#3975bd;border-radius:6px 6px 0 0;min-height:3px}.record-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>پاسخبرگ دیجیتال کنکور من</h1><p>پاسخ‌ها را وارد کن، کلید را ثبت کن و کارنامه بگیر.</p></div></header>
+<main class="wrap">
+<nav class="app-nav no-print" style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0">
+<button class="action secondary" onclick="openAppPage('dashboardPage')">خانه</button>
+<button class="action secondary" onclick="openAppPage('setupPage')">پاسخبرگ</button>
+<button class="action secondary" onclick="openAppPage('booksPage')">کتابخانه</button>
+<button class="action secondary" onclick="openAppPage('historyPage')">تاریخچه</button>
+</nav>
+<section class="card page active" id="dashboardPage">
+<div class="topline"><h2>داشبورد عملکرد</h2><span class="pill" id="todayLabel"></span></div>
+<div class="stats">
+<div class="stat"><b id="todayTests">۰</b><span>تست امروز</span></div>
+<div class="stat"><b id="weekTests">۰</b><span>تست این هفته</span></div>
+<div class="stat"><b id="allTests">۰</b><span>کل تست‌ها</span></div>
+<div class="stat"><b id="bestDay">۰</b><span>رکورد روزانه</span></div>
+</div>
+<div class="scoreline" style="margin-top:12px"><div>آزمون‌های ثبت‌شده<br><strong id="examCount">۰</strong></div><div>میانگین درصد<br><strong id="avgPercent">۰٪</strong></div></div>
+<h2 style="margin-top:18px">عملکرد ۷ روز اخیر</h2><div id="weeklyBars" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:125px"></div>
+<h2 style="margin-top:18px">آخرین فعالیت‌ها</h2><div id="recentActivity" class="instruction">هنوز آزمونی ثبت نشده است.</div>
+<div class="actions"><button class="action primary" onclick="openAppPage('setupPage')">شروع آزمون جدید</button><button class="action secondary" onclick="resumeDraft()">ادامه آزمون ناتمام</button><button class="action secondary" onclick="exportBackup()">خروجی پشتیبان اطلاعات</button><button class="action secondary" onclick="document.getElementById('restoreFile').click()">بازیابی پشتیبان</button><input id="restoreFile" type="file" accept="application/json" style="display:none" onchange="importBackup(event)"></div>
+<p class="instruction">اطلاعات فقط روی همین دستگاه ذخیره می‌شود. هر چند وقت یک‌بار فایل پشتیبان بگیر.</p>
+</section>
+<section class="card page" id="booksPage"><div class="topline"><h2>کتابخانه تست</h2><span class="pill" id="bookCount">۰ کتاب</span></div>
+<div class="grid"><div><label>نام کتاب</label><input id="newBookName" placeholder="مثلاً ریاضی جامع" /></div><div><label>درس</label><input id="newBookSubject" placeholder="مثلاً حسابان" /></div><div><label>ناشر (اختیاری)</label><input id="newBookPublisher" placeholder="مثلاً نشر الگو" /></div><div><label>توضیح (اختیاری)</label><input id="newBookNote" placeholder="پایه یا جلد" /></div></div>
+<button class="action primary full" onclick="addBook()">افزودن کتاب</button><div id="bookList" style="margin-top:14px"></div></section>
+<section class="card page" id="historyPage"><div class="topline"><h2>تاریخچه آزمون‌ها</h2><span class="pill" id="historyCount">۰ آزمون</span></div><div id="historyList" class="instruction">هنوز سابقه‌ای ثبت نشده است.</div><button class="action secondary" onclick="exportBackup()">دریافت فایل پشتیبان</button></section>
+<section class="card page" id="setupPage">
+<h2>تنظیم پاسخبرگ</h2>
+<div style="margin-bottom:12px"><label>نوع پاسخبرگ</label><select id="sheetMode"><option value="exam">حالت آزمون</option><option value="educational">حالت تست آموزشی (سطح و توضیحات)</option></select></div>
+<div class="grid">
+<div><label for="sheetName">نام پاسخبرگ</label><input id="sheetName" placeholder="مثلاً زیست فصل ۳"></div>
+<div><label for="start">شماره اولین تست</label><input id="start" type="number" min="1" value="1"></div>
+<div><label for="count">تعداد تست</label><input id="count" type="number" min="1" max="200" value="25"></div>
+<div><label for="step">فاصله تست‌ها</label><select id="step"><option value="1">پشت سر هم</option><option value="2">یکی در میان (گام ۲)</option><option value="3">دو تا در میان (گام ۳)</option><option value="4">سه تا در میان (گام ۴)</option><option value="5">چهار تا در میان (گام ۵)</option></select></div>
+<div><label for="negative">نمره منفی</label><select id="negative"><option value="3">سه غلط = یک درست</option><option value="4">چهار غلط = یک درست</option><option value="0">بدون نمره منفی</option></select></div>
+<div><label for="subject">درس / مبحث (اختیاری)</label><input id="subject" placeholder="مثلاً فیزیک - نوسان"></div>
+<div><label for="exam">نام آزمون (اختیاری)</label><input id="exam" placeholder="مثلاً آزمون جمعه"></div>
+<div><label for="bookSelect">کتاب تست (اختیاری)</label><select id="bookSelect"><option value="">بدون انتخاب کتاب</option></select></div>
+</div>
+<div class="timer-config">
+  <input id="timerEnabled" type="checkbox" style="width:18px">
+  <label for="timerEnabled">تایمر آزمون فعال باشد</label>
+  <label for="secondsPerQuestion">زمان هر تست (ثانیه):</label>
+  <input class="seconds-input" id="secondsPerQuestion" type="number" min="1" max="3600" value="90" disabled>
+  <div class="timer-summary" id="timerSummary">با فعال‌کردن تایمر، زمان کل آزمون بر اساس تعداد تست‌ها محاسبه می‌شود.</div>
+</div>
+<p class="hint">مثال: شروع از ۱۰، تعداد ۲۵ و گام ۲ یعنی تست‌های ۱۰، ۱۲، ۱۴ و ...</p>
+<button class="action primary full" id="build">ساخت پاسخبرگ</button>
+</section>
+
+<section class="card page" id="answerPage">
+<div class="topline"><h2>صفحه اول | ثبت پاسخ‌ها</h2><span class="pill" id="answerInfo"></span></div>
+<p class="instruction">گزینه انتخابی خودت را در هر ردیف لمس کن. سؤال نزده را خالی بگذار.</p>
+<div class="timer-panel no-print" id="timerPanel" style="display:none">
+  <div><small>زمان باقی‌مانده</small><strong id="timerDisplay">۰۰:۰۰</strong></div>
+  <div><small>زمان کل آزمون</small><b id="timerTotal">—</b></div>
+</div>
+<div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0"><input id="customTest" type="number" placeholder="شماره تست برای افزودن" style="flex:1;min-width:150px"><button class="action secondary" id="addCustom">افزودن تست</button></div><div class="answer-list" id="answerList"></div>
+<div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;padding:12px;border:1px dashed #cbd5e1;border-radius:12px"><label style="width:100%">افزودن تست به انتهای پاسخبرگ</label><input id="addCount" type="number" min="1" value="50" placeholder="چند تست اضافه شود؟" style="flex:1;min-width:130px"><button class="action secondary" id="addMany">افزودن N تست</button><small style="width:100%;color:var(--muted)">شماره‌گذاری با ادامه گام فعلی انجام می‌شود و پاسخ‌های قبلی حفظ می‌شوند.</small></div>
+<div class="actions no-print"><button class="action secondary" id="quickExportAnswers">خروجی عکس پاسخ‌ها بدون کلید</button><button class="action primary" id="toKey" style="flex:1">پایان پاسخ‌گویی و ورود کلید ←</button></div>
+</section>
+
+<section class="card page key-mode" id="keyPage">
+<div class="topline"><h2>صفحه دوم | ورود کلید پاسخ</h2><span class="pill" id="keyInfo"></span></div>
+<p class="instruction">گزینه صحیح هر سؤال را در همان ردیف انتخاب کن. شماره تست‌ها با صفحه قبل یکسان است.</p>
+<div class="answer-list" id="keyList"></div>
+<div class="actions">
+<button class="action secondary" id="backAnswers">→ بازگشت به پاسخ‌ها</button>
+<button class="action primary" id="calculate" style="flex:1">محاسبه و صدور کارنامه</button>
+</div>
+</section>
+
+<section class="card page" id="reportPage">
+<div class="topline"><h2>کارنامه آزمون</h2><span class="pill" id="reportDate"></span></div>
+<div id="reportTitle" class="hint" style="margin-bottom:12px"></div>
+<div class="stats">
+<div class="stat"><b id="correct" style="color:#16845b">۰</b><span>درست</span></div>
+<div class="stat"><b id="wrong" style="color:#d04444">۰</b><span>غلط</span></div>
+<div class="stat"><b id="blank">۰</b><span>نزده</span></div>
+<div class="stat"><b id="total">۰</b><span>کل تست‌ها</span></div>
+</div>
+<div class="scoreline"><div>درصد با نمره منفی<br><strong id="percent">۰٪</strong></div><div>امتیاز خام<br><strong id="raw">۰</strong></div></div>
+<p class="hint" id="formula"></p>
+
+<div class="report-sheet" id="comparisonSheet">
+<div class="report-sheet-head"><span>پاسخبرگ تطبیقی</span><span>پاسخ شما در برابر کلید</span></div>
+<div id="comparisonRows"></div>
+<div class="report-legend">
+<span class="legend-item"><span class="mark correct">✓</span> پاسخ درست کاربر</span>
+<span class="legend-item"><span class="mark wrong">×</span> پاسخ غلط کاربر</span>
+<span class="legend-item"><span class="mark key">✓</span> گزینه صحیح کلید</span>
+</div>
+</div>
+<div class="actions no-print">
+<button class="action primary" onclick="window.print()">چاپ / ذخیره PDF</button><button class="action secondary" id="exportImage">خروجی عکس تطبیقی (چندصفحه‌ای)</button><button class="action secondary" id="exportAnswersOnly">خروجی فقط پاسخ‌ها (بدون درصد)</button><button class="action secondary" id="saveSheet">ذخیره پاسخبرگ</button><button class="action secondary" id="loadSheet">مدیریت پاسبرگ‌ها</button>
+<button class="action secondary" id="editAgain">ویرایش آزمون</button>
+</div>
+</section>
+<footer>پاسخبرگ دیجیتال کنکور من · بدون نیاز به اینترنت</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let numbers=[],answers={},keys={},levels={},explanations={},timerInterval=null,timeRemaining=0,totalDuration=0,timerActive=false; let savedSheets=[];
+const DB_KEY='pasokhbarg_app_v1';
+let appDB={books:[],history:[],savedSheets:[],draft:null};
+let currentSessionId=null;
+function persistDB(){try{localStorage.setItem(DB_KEY,JSON.stringify(appDB));}catch(e){alert('فضای ذخیره‌سازی گوشی کافی نیست؛ از اطلاعات پشتیبان بگیر.');}}
+function loadDB(){try{const x=JSON.parse(localStorage.getItem(DB_KEY)||'{}');appDB={books:Array.isArray(x.books)?x.books:[],history:Array.isArray(x.history)?x.history:[],savedSheets:Array.isArray(x.savedSheets)?x.savedSheets:[],draft:x.draft||null};savedSheets=appDB.savedSheets;}catch(e){appDB={books:[],history:[],savedSheets:[],draft:null};}}
+function resumeDraft(){if(!numbers.length){alert('آزمون ناتمامی برای ادامه وجود ندارد.');return;}makeRows('answerList','answer');makeRows('keyList','key');openAppPage('answerPage');}
+function openAppPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');if(id==='dashboardPage')renderDashboard();if(id==='booksPage')renderBooks();if(id==='historyPage')renderHistory();window.scrollTo({top:0,behavior:'smooth'});}
+function localDay(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function saveDraft(){appDB.draft={id:currentSessionId,numbers,answers,keys,levels,explanations,meta:{name:$('sheetName').value,exam:$('exam').value,subject:$('subject').value,bookId:$('bookSelect').value,mode:$('sheetMode').value,negative:$('negative').value}};persistDB();}
+function addBook(){const name=$('newBookName').value.trim();if(!name){alert('نام کتاب را وارد کن.');return;}appDB.books.push({id:'b'+Date.now(),name,subject:$('newBookSubject').value.trim(),publisher:$('newBookPublisher').value.trim(),note:$('newBookNote').value.trim(),created:Date.now()});['newBookName','newBookSubject','newBookPublisher','newBookNote'].forEach(id=>$(id).value='');persistDB();renderBooks();renderBookSelect();}
+function deleteBook(id){if(!confirm('این کتاب حذف شود؟ سابقه آزمون‌ها حذف نمی‌شود.'))return;appDB.books=appDB.books.filter(b=>b.id!==id);persistDB();renderBooks();renderBookSelect();}
+function renderBooks(){const el=$('bookList');$('bookCount').textContent=fa(appDB.books.length)+' کتاب';el.innerHTML=appDB.books.length?'':'<p class="instruction">هنوز کتابی اضافه نکرده‌ای.</p>';appDB.books.forEach(b=>{const d=document.createElement('div');d.className='mini-card';d.innerHTML='<b></b><div class="instruction"></div><div class="record-actions"><button class="action secondary">حذف کتاب</button></div>';d.querySelector('b').textContent=b.name;const used=appDB.history.filter(h=>h.bookId===b.id).reduce((n,h)=>n+(h.total||0),0);d.querySelector('.instruction').textContent=[b.subject,b.publisher,b.note,fa(used)+' تست ثبت‌شده'].filter(Boolean).join(' · ');d.querySelector('button').onclick=()=>deleteBook(b.id);el.appendChild(d);});}
+function renderBookSelect(){const sel=$('bookSelect'),v=sel.value;sel.innerHTML='<option value="">بدون انتخاب کتاب</option>';appDB.books.forEach(b=>{const o=document.createElement('option');o.value=b.id;o.textContent=b.name+(b.subject?' — '+b.subject:'');sel.appendChild(o);});sel.value=v;}
+function renderDashboard(){const today=localDay(),now=new Date(),weekStart=new Date(now);weekStart.setDate(now.getDate()-6);const hist=appDB.history;const byDay={};hist.forEach(h=>byDay[h.day]=(byDay[h.day]||0)+h.total);const sum=a=>a.reduce((x,y)=>x+y,0);const todayN=byDay[today]||0;const weekN=sum(Object.keys(byDay).filter(k=>k>=localDay(weekStart)&&k<=today).map(k=>byDay[k]));const all=sum(hist.map(h=>h.total));$('todayLabel').textContent=now.toLocaleDateString('fa-IR');$('todayTests').textContent=fa(todayN);$('weekTests').textContent=fa(weekN);$('allTests').textContent=fa(all);$('bestDay').textContent=fa(Math.max(0,...Object.values(byDay)));$('examCount').textContent=fa(hist.length);$('avgPercent').textContent=fa(hist.length?sum(hist.map(h=>h.percent))/hist.length:0)+'٪';const bars=$('weeklyBars');bars.innerHTML='';const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d);}const max=Math.max(1,...days.map(d=>byDay[localDay(d)]||0));days.forEach(d=>{const n=byDay[localDay(d)]||0,w=document.createElement('div');w.className='bar-wrap';const bar=document.createElement('div');bar.className='bar';bar.style.height=(n/max*85+3)+'px';bar.title=fa(n)+' تست';const val=document.createElement('span');val.textContent=fa(n);const day=document.createElement('span');day.textContent=d.toLocaleDateString('fa-IR',{day:'numeric',month:'numeric'});w.append(val,bar,day);bars.appendChild(w);});const recent=$('recentActivity');recent.innerHTML='';if(!hist.length)recent.textContent='هنوز آزمونی ثبت نشده است.';hist.slice(-5).reverse().forEach(h=>{const d=document.createElement('div');d.className='mini-card';d.textContent=h.name+' · '+h.subject+' · '+fa(h.total)+' تست · '+fa(h.percent)+'٪';recent.appendChild(d);});}
+function renderHistory(){const el=$('historyList');$('historyCount').textContent=fa(appDB.history.length)+' آزمون';el.innerHTML='';if(!appDB.history.length){el.textContent='هنوز سابقه‌ای ثبت نشده است.';return;}appDB.history.slice().reverse().forEach(h=>{const d=document.createElement('div');d.className='mini-card';const b=document.createElement('b');b.textContent=h.name||'آزمون بدون نام';const p=document.createElement('div');p.className='instruction';p.textContent=[h.day,h.subject,h.bookName,fa(h.total)+' تست',fa(h.correct)+' درست',fa(h.wrong)+' غلط',fa(h.blank)+' نزده',fa(h.percent)+'٪'].filter(Boolean).join(' · ');d.append(b,p);el.appendChild(d);});}
+function exportBackup(){const blob=new Blob([JSON.stringify(appDB,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pasokhbarg-backup-'+localDay()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);}
+function importBackup(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!x||!Array.isArray(x.books)||!Array.isArray(x.history))throw Error();appDB={books:x.books,history:x.history,savedSheets:Array.isArray(x.savedSheets)?x.savedSheets:[],draft:x.draft||null};savedSheets=appDB.savedSheets;persistDB();renderBookSelect();renderDashboard();alert('پشتیبان با موفقیت بازیابی شد.');}catch(e){alert('فایل پشتیبان معتبر نیست.');}};r.readAsText(f);ev.target.value='';}
+function recordSession(data){const existing=appDB.history.findIndex(h=>h.id===currentSessionId);if(existing>=0)appDB.history[existing]=data;else appDB.history.push(data);persistDB();renderDashboard();}
+
+const fa=n=>Number(n).toLocaleString('fa-IR',{maximumFractionDigits:2});
+const choices=['۱','۲','۳','۴'];
+function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');$(id).scrollIntoView({behavior:'smooth',block:'start'})}
+function stopTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null}}
+function formatTime(seconds){
+ const mins=Math.floor(Math.max(0,seconds)/60),secs=Math.max(0,seconds)%60;
+ return String(mins).padStart(2,'0')+':'+String(secs).padStart(2,'0');
+}
+function updateTimer(){
+ $('timerDisplay').textContent=formatTime(timeRemaining);
+ $('timerPanel').classList.toggle('expired',timeRemaining===0);
+}
+function finishTime(){
+ stopTimer();timerActive=false;timeRemaining=0;updateTimer();
+ alert('زمان آزمون تمام شد! حالا کلید پاسخ‌ها را وارد کن.');
+ makeRows('keyList','key');show('keyPage');
+}
+function startTimer(){
+ stopTimer();
+ if(!timerActive)return;
+ timeRemaining=totalDuration;updateTimer();
+ timerInterval=setInterval(()=>{
+  timeRemaining--;
+  updateTimer();
+  if(timeRemaining<=0)finishTime();
+ },1000);
+}
+function makeRows(target,mode){
+ $(target).innerHTML='';
+ numbers.forEach((num,i)=>{
+  const wrap=document.createElement('div');wrap.className='edu-row-wrap'+($('sheetMode').value==='educational'&&mode==='answer'?' educational':'');
+  if(levels[i])wrap.classList.add('level-'+levels[i].toLowerCase());
+  const row=document.createElement('div');row.className='answer-row';
+  const no=document.createElement('div');no.className='number';no.textContent=fa(num);
+  const opts=document.createElement('div');opts.className='options';
+  choices.forEach((label,j)=>{
+   const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=label;
+   if((mode==='answer'?answers[i]:keys[i])===j)b.classList.add('selected');
+   b.onclick=()=>{const store=mode==='answer'?answers:keys;if(store[i]===j)delete store[i];else store[i]=j;[...opts.children].forEach((el,k)=>el.classList.toggle('selected',store[i]===k));saveDraft();};opts.appendChild(b);
+  });row.append(no,opts);
+  if(mode==='answer'&&$('sheetMode').value==='educational'){
+   const extra=document.createElement('div');extra.className='edu-extra';
+   ['A','B'].forEach(l=>{const btn=document.createElement('button');btn.type='button';btn.className='level-btn '+l.toLowerCase()+(levels[i]===l?' active':'');btn.textContent='سطح '+l;btn.onclick=()=>{levels[i]=levels[i]===l?'':l;if(!levels[i])delete levels[i];saveDraft();wrap.classList.toggle('level-a',levels[i]==='A');wrap.classList.toggle('level-b',levels[i]==='B');extra.querySelectorAll('.level-btn').forEach(x=>x.classList.toggle('active',x.textContent.endsWith(l)&&levels[i]===l));};extra.appendChild(btn);});
+   const toggle=document.createElement('button');toggle.className='explain-toggle';toggle.type='button';toggle.textContent='＋ توضیحات';extra.appendChild(toggle);
+   const box=document.createElement('div');box.className='explain-box';const ta=document.createElement('textarea');ta.placeholder='توضیحات، نکته یا راه‌حل این تست...';ta.value=explanations[i]||'';ta.oninput=()=>{explanations[i]=ta.value;saveDraft();};box.appendChild(ta);extra.appendChild(box);toggle.onclick=()=>{box.classList.toggle('open');toggle.textContent=box.classList.contains('open')?'− بستن توضیحات':'＋ توضیحات';};if(explanations[i])box.classList.add('open');wrap.append(row,extra);
+  }else wrap.append(row);
+  $(target).appendChild(wrap);
+ });
+}
+function buildComparison(){
+ const target=$('comparisonRows');target.innerHTML='';
+ numbers.forEach((num,i)=>{
+  const row=document.createElement('div');row.className='report-row';
+  const no=document.createElement('div');no.className='report-number';no.textContent=fa(num);
+  const opts=document.createElement('div');opts.className='report-options';
+  for(let j=0;j<4;j++){
+   const cell=document.createElement('div');cell.className='report-option';
+   const userSelected=answers[i]===j,keySelected=keys[i]===j;
+   if(userSelected&&keySelected){cell.innerHTML='<span class="mark correct">✓</span>'}
+   else if(userSelected&&!keySelected){cell.innerHTML='<span class="mark wrong">×</span>'}
+   else if(keySelected){cell.innerHTML='<span class="mark key">✓</span>'}
+   else{cell.textContent=choices[j]}
+   opts.appendChild(cell);
+  }
+  row.append(no,opts);target.appendChild(row);
+ });
+}
+function updateTimerSummary(){
+ const enabled=$('timerEnabled').checked;
+ const seconds=Math.max(1,Math.min(3600,parseInt($('secondsPerQuestion').value)||90));
+ $('secondsPerQuestion').disabled=!enabled;
+ if(!enabled){$('timerSummary').textContent='تایمر خاموش است؛ آزمون بدون محدودیت زمانی انجام می‌شود.';return}
+ const count=Math.max(1,Math.min(5000,parseInt($('count').value)||1));
+ const total=count*seconds;
+ $('timerSummary').textContent='زمان کل: '+fa(total/60)+' دقیقه ('+formatTime(total)+') · با پایان زمان، برنامه خودکار به صفحه ورود کلید می‌رود.';
+}
+$('sheetMode').onchange=()=>{if(numbers.length)makeRows('answerList','answer');};
+$('timerEnabled').onchange=updateTimerSummary;
+$('secondsPerQuestion').oninput=updateTimerSummary;
+$('count').oninput=updateTimerSummary;
+$('build').onclick=()=>{
+ const start=Math.max(1,parseInt($('start').value)||1),count=Math.min(5000,Math.max(1,parseInt($('count').value)||1)),step=Number($('step').value)||1;
+ numbers=Array.from({length:count},(_,i)=>start+i*step);answers={};keys={};levels={};explanations={};currentSessionId='s'+Date.now();saveDraft();
+ $('answerInfo').textContent=fa(count)+' سؤال · گام '+fa(step);$('keyInfo').textContent=fa(count)+' سؤال';
+ makeRows('answerList','answer');makeRows('keyList','key');
+ timerActive=$('timerEnabled').checked;
+ totalDuration=count*Math.max(1,Math.min(3600,parseInt($('secondsPerQuestion').value)||90));
+ $('timerPanel').style.display=timerActive?'flex':'none';
+ if(timerActive){
+  $('timerTotal').textContent=fa(totalDuration/60)+' دقیقه';
+  startTimer();
+ }else{stopTimer();$('timerDisplay').textContent='۰۰:۰۰';}
+ show('answerPage');
+};
+$('toKey').onclick=()=>{stopTimer();timerActive=false;makeRows('keyList','key');show('keyPage')};
+$('backAnswers').onclick=()=>{makeRows('answerList','answer');show('answerPage')};
+$('calculate').onclick=()=>{
+ const missing=numbers.filter((_,i)=>keys[i]===undefined).length;
+ if(missing){alert('کلید '+fa(missing)+' سؤال وارد نشده است.');return}
+ stopTimer();timerActive=false;
+ let correct=0,wrong=0,blank=0;
+ numbers.forEach((_,i)=>{if(answers[i]===undefined)blank++;else if(answers[i]===keys[i])correct++;else wrong++});
+ const total=numbers.length,neg=Number($('negative').value),raw=correct-(neg?wrong/neg:0),pct=raw/total*100;
+ $('correct').textContent=fa(correct);$('wrong').textContent=fa(wrong);$('blank').textContent=fa(blank);$('total').textContent=fa(total);
+ $('percent').textContent=fa(pct)+'٪';$('raw').textContent=fa(raw);
+ $('formula').textContent=neg?'فرمول: (درست − غلط ÷ '+fa(neg)+') ÷ کل تست‌ها × ۱۰۰':'فرمول: درست ÷ کل تست‌ها × ۱۰۰ · بدون نمره منفی';
+ $('reportTitle').textContent=[$('sheetName').value,$('exam').value,$('subject').value,'شروع از تست '+fa(numbers[0])].filter(Boolean).join(' | ');
+ $('reportDate').textContent=new Date().toLocaleDateString('fa-IR');
+ const book=appDB.books.find(b=>b.id===$('bookSelect').value);recordSession({id:currentSessionId||('s'+Date.now()),day:localDay(),timestamp:Date.now(),name:$('sheetName').value||$('exam').value||'آزمون',exam:$('exam').value,subject:$('subject').value,bookId:book?.id||'',bookName:book?.name||'',total:correct+wrong,sheetTotal:total,correct,wrong,blank,percent:pct});
+ buildComparison();show('reportPage');
+};
+$('editAgain').onclick=()=>{stopTimer();timerActive=false;makeRows('answerList','answer');show('answerPage')};
+function rebuildByNumber(oldNumbers,oldAnswers,oldKeys,oldLevels=levels,oldExpl=explanations){const aBy={},kBy={},lBy={},eBy={};oldNumbers.forEach((n,i)=>{aBy[n]=oldAnswers[i];kBy[n]=oldKeys[i];lBy[n]=oldLevels[i];eBy[n]=oldExpl[i]});answers={};keys={};levels={};explanations={};numbers.forEach((n,i)=>{if(aBy[n]!==undefined)answers[i]=aBy[n];if(kBy[n]!==undefined)keys[i]=kBy[n];if(lBy[n])levels[i]=lBy[n];if(eBy[n])explanations[i]=eBy[n]});}
+$('addCustom').onclick=()=>{const n=parseInt($('customTest').value);if(!n||n<1){alert('شماره تست معتبر وارد کنید');return}if(numbers.includes(n)){alert('این شماره قبلاً اضافه شده');return}const oldN=[...numbers],oldA={...answers},oldK={...keys};numbers.push(n);numbers.sort((a,b)=>a-b);rebuildByNumber(oldN,oldA,oldK,{...levels},{...explanations});makeRows('answerList','answer');makeRows('keyList','key');$('answerInfo').textContent=fa(numbers.length)+' سؤال';$('keyInfo').textContent=fa(numbers.length)+' سؤال';$('customTest').value='';};
+$('addMany').onclick=()=>{const amount=Math.max(1,Math.min(5000,parseInt($('addCount').value)||1)),step=Math.max(1,Number($('step').value)||1);const oldN=[...numbers],oldA={...answers},oldK={...keys};let next=(numbers.length?Math.max(...numbers):Math.max(1,parseInt($('start').value)||1)-step)+step;let added=0;while(added<amount){if(!numbers.includes(next)){numbers.push(next);added++;}next+=step;}numbers.sort((a,b)=>a-b);rebuildByNumber(oldN,oldA,oldK,{...levels},{...explanations});makeRows('answerList','answer');makeRows('keyList','key');$('answerInfo').textContent=fa(numbers.length)+' سؤال · گام '+fa(step);$('keyInfo').textContent=fa(numbers.length)+' سؤال';alert(fa(amount)+' تست اضافه شد.');};
+$('saveSheet').onclick=()=>{savedSheets.push({name:$('sheetName').value||('پاسخبرگ '+(savedSheets.length+1)),numbers:[...numbers],answers:{...answers},keys:{...keys},levels:{...levels},explanations:{...explanations},title:$('reportTitle').textContent});appDB.savedSheets=savedSheets;persistDB();alert('پاسخبرگ به‌صورت دائمی روی گوشی ذخیره شد.');};
+$('loadSheet').onclick=()=>{if(!savedSheets.length){alert('پاسخبرگ ذخیره‌شده‌ای ندارید.');return}let msg=savedSheets.map((s,i)=>`${i+1}. ${s.name}`).join('\n');let ix=parseInt(prompt('شماره پاسخبرگ برای بارگذاری:\n'+msg))-1;if(ix>=0&&ix<savedSheets.length){let s=savedSheets[ix];numbers=s.numbers;answers=s.answers;keys=s.keys;levels=s.levels||{};explanations=s.explanations||{};$('sheetName').value=s.name;makeRows('answerList','answer');makeRows('keyList','key');show('answerPage')}};
+$('exportImage').onclick=()=>{const rows=numbers.map((num,i)=>({num,ans:answers[i],key:keys[i]}));const perPage=35,pages=Math.ceil(rows.length/perPage);pages&&Array.from({length:pages},(_,pg)=>{const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');canvas.width=1400;canvas.height=1800;ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#172235';ctx.textAlign='right';ctx.direction='rtl';ctx.font='bold 42px Tahoma';ctx.fillText(($('sheetName').value||'پاسخبرگ')+' — صفحه '+(pg+1)+' از '+pages,1300,90);ctx.font='24px Tahoma';ctx.fillText(($('exam').value||'')+' '+($('subject').value||''),1300,140);let y=210;rows.slice(pg*perPage,(pg+1)*perPage).forEach(r=>{ctx.strokeStyle='#d5dbe5';ctx.beginPath();ctx.moveTo(100,y+22);ctx.lineTo(1300,y+22);ctx.stroke();ctx.fillStyle='#172235';ctx.font='bold 28px Tahoma';ctx.fillText(String(r.num),1280,y);for(let j=0;j<4;j++){let x=900-j*190;ctx.beginPath();ctx.arc(x,y-5,29,0,Math.PI*2);ctx.strokeStyle='#9aa7b8';ctx.stroke();ctx.font='25px Tahoma';ctx.textAlign='center';ctx.fillText(['۱','۲','۳','۴'][j],x,y+8);if(r.ans===j){ctx.fillStyle=r.ans===r.key?'#16845b':'#d04444';ctx.beginPath();ctx.arc(x,y-5,25,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.fillText(r.ans===r.key?'✓':'×',x,y+8)}if(r.key===j&&r.ans!==j){ctx.strokeStyle='#16845b';ctx.lineWidth=4;ctx.beginPath();ctx.arc(x,y-5,32,0,Math.PI*2);ctx.stroke();ctx.lineWidth=1}}y+=43});ctx.textAlign='right';ctx.direction='rtl';ctx.font='20px Tahoma';ctx.fillStyle='#667';ctx.fillText('درست ✓   غلط ×   حلقه سبز: کلید',1300,1700);canvas.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=($('sheetName').value||'answer-sheet')+'-page-'+(pg+1)+'.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)},'image/png')});alert('تصاویر با کیفیت بالا برای همه صفحات دانلود می‌شوند.');};
+
+$('quickExportAnswers').onclick=()=>{ $('exportAnswersOnly').click(); };
+$('exportAnswersOnly').onclick=()=>{
+ const rows=numbers.map((num,i)=>({num,ans:answers[i],level:levels[i]||'',explanation:explanations[i]||''}));
+ if(!rows.length){alert('ابتدا پاسخبرگ را بسازید.');return;}
+ const perPage=$("sheetMode").value==="educational"?60:100,pages=Math.ceil(rows.length/perPage);
+ const faDigits=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)]);
+ const pageImages=[];
+ const drawPage=(pg)=>new Promise(resolve=>{
+  const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');canvas.width=1600;canvas.height=2200;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle='#222';ctx.lineWidth=5;ctx.strokeRect(45,45,1510,205);
+  ctx.strokeStyle='#9b387f';ctx.lineWidth=5;ctx.strokeRect(65,65,1470,165);
+  ctx.fillStyle='#222';ctx.textAlign='center';ctx.direction='rtl';ctx.font='bold 48px Tahoma';ctx.fillText('پاسخبرگ پاسخ‌ها',800,125);
+  ctx.font='bold 30px Tahoma';ctx.fillText($('sheetName').value||'پاسخبرگ',800,175);
+  ctx.font='22px Tahoma';ctx.fillText([$('exam').value,$('subject').value].filter(Boolean).join('  |  ')||'ثبت پاسخ‌ها',800,215);
+  ctx.textAlign='right';ctx.font='20px Tahoma';ctx.fillText('صفحه '+faDigits(pg+1)+' از '+faDigits(pages),1500,290);
+  ctx.textAlign='center';ctx.font='bold 24px Tahoma';ctx.fillText('برای هر سؤال فقط یک گزینه را مشخص کنید',800,290);
+  const pageRows=rows.slice(pg*perPage,(pg+1)*perPage),cols=4,blockW=360,blockH=1740,top=340,gap=20;
+  for(let c=0;c<cols;c++){
+   const x=1500-c*(blockW+gap)-blockW,subset=pageRows.slice(c*(perPage/4),(c+1)*(perPage/4));
+   if(!subset.length)continue;
+   ctx.strokeStyle='#333';ctx.lineWidth=2;ctx.strokeRect(x,top,blockW,blockH);
+   ctx.fillStyle='#f3f3f3';ctx.fillRect(x,top,blockW,48);ctx.strokeStyle='#555';ctx.strokeRect(x,top,blockW,48);
+   ctx.fillStyle='#222';ctx.textAlign='center';ctx.font='bold 24px Tahoma';ctx.fillText('سؤال '+faDigits(subset[0].num)+' تا '+faDigits(subset[subset.length-1].num),x+blockW/2,top+32);
+   const rowH=(blockH-55)/(perPage/4);
+   subset.forEach((r,k)=>{
+    const yy=top+55+k*rowH;ctx.strokeStyle='#ddd';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x+8,yy+rowH-1);ctx.lineTo(x+blockW-8,yy+rowH-1);ctx.stroke();
+    ctx.fillStyle='#111';ctx.textAlign='right';ctx.direction='rtl';ctx.font='bold 21px Tahoma';ctx.fillText(faDigits(r.num),x+blockW-12,yy+rowH*.72);if(r.level){ctx.textAlign='left';ctx.font='bold 17px Tahoma';ctx.fillStyle=r.level==='A'?'#2563eb':'#dc2626';ctx.fillText('سطح '+r.level,x+12,yy+rowH*.72);}if(r.explanation){ctx.textAlign='right';ctx.font='13px Tahoma';ctx.fillStyle='#444';let txt=r.explanation.replace(/\s+/g,' ');if(txt.length>55)txt=txt.slice(0,55)+'…';ctx.fillText(txt,x+blockW-12,yy+rowH-5);}
+    const bubbleR=17,centers=[x+125,x+180,x+235,x+290];
+    centers.forEach((cx,j)=>{const cy=yy+rowH*.52;ctx.beginPath();ctx.arc(cx,cy,bubbleR,0,Math.PI*2);ctx.lineWidth=2;ctx.strokeStyle='#333';ctx.stroke();ctx.fillStyle='#222';ctx.textAlign='center';ctx.font='18px Tahoma';ctx.fillText('۱۲۳۴'[j],cx,cy+6);if(r.ans===j){ctx.beginPath();ctx.arc(cx,cy,bubbleR-3,0,Math.PI*2);ctx.fillStyle='#111';ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 17px Tahoma';ctx.fillText('●',cx,cy+6);}});
+   });
+  }
+  ctx.strokeStyle='#333';ctx.lineWidth=2;ctx.strokeRect(45,2100,1510,55);ctx.fillStyle='#222';ctx.textAlign='center';ctx.font='22px Tahoma';ctx.fillText('پاسخ‌های انتخاب‌شده با دایره تیره مشخص شده‌اند  •  خروجی با کیفیت بالا',800,2135);
+  canvas.toBlob(blob=>resolve(blob),'image/jpeg',0.94);
+ });
+ const buildPdf=async()=>{
+  for(let pg=0;pg<pages;pg++)pageImages.push(await drawPage(pg));
+  const enc=new TextEncoder(),parts=[],offsets=[];let byteLen=0;
+  const push=(part)=>{parts.push(part);byteLen+=part.length;};
+  const str=s=>enc.encode(s);
+  const pageObjIds=[];const imageObjIds=[];const contentObjIds=[];
+  // IDs: catalog 1, pages 2, then triplets per page
+  for(let i=0;i<pages;i++){pageObjIds.push(3+i*3);imageObjIds.push(4+i*3);contentObjIds.push(5+i*3);}
+  push(str('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n'));
+  const totalObjs=2+pages*3;
+  const addObj=(id,partsForObj)=>{offsets[id]=byteLen;push(str(`${id} 0 obj\n`));partsForObj();push(str('\nendobj\n'));};
+  addObj(1,()=>push(str('<< /Type /Catalog /Pages 2 0 R >>')));
+  addObj(2,()=>push(str(`<< /Type /Pages /Kids [${pageObjIds.map(id=>id+' 0 R').join(' ')}] /Count ${pages} >>`)));
+  for(let i=0;i<pages;i++){
+   const jpg=new Uint8Array(await pageImages[i].arrayBuffer());
+   addObj(pageObjIds[i],()=>push(str(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /Im${i+1} ${imageObjIds[i]} 0 R >> >> /Contents ${contentObjIds[i]} 0 R >>`)));
+   addObj(imageObjIds[i],()=>{push(str(`<< /Type /XObject /Subtype /Image /Width 1600 /Height 2200 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpg.length} >>\nstream\n`));push(jpg);push(str('\nendstream'));});
+   const content=str(`q\n595.28 0 0 841.89 0 0 cm\n/Im${i+1} Do\nQ`);
+   addObj(contentObjIds[i],()=>{push(str(`<< /Length ${content.length} >>\nstream\n`));push(content);push(str('\nendstream'));});
+  }
+  const xrefOffset=byteLen;push(str(`xref\n0 ${totalObjs+1}\n0000000000 65535 f \n`));
+  for(let id=1;id<=totalObjs;id++)push(str(String(offsets[id]).padStart(10,'0')+' 00000 n \n'));
+  push(str(`trailer\n<< /Size ${totalObjs+1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`));
+  const pdfBlob=new Blob(parts,{type:'application/pdf'});const url=URL.createObjectURL(pdfBlob),a=document.createElement('a');a.href=url;a.download=($('sheetName').value||'answers')+'-answer-sheet.pdf';a.click();setTimeout(()=>URL.revokeObjectURL(url),15000);
+ };
+ buildPdf().then(()=>alert('PDF چندصفحه‌ای پاسخبرگ آماده و دانلود شد.')).catch(e=>{console.error(e);alert('ساخت PDF با خطا مواجه شد. لطفاً دوباره تلاش کنید.');});
+};
+
+loadDB();renderBookSelect();renderBooks();renderDashboard();
+// Restore an unfinished answer sheet after reopening the app.
+if(appDB.draft&&appDB.draft.numbers?.length){const d=appDB.draft;numbers=d.numbers;answers=d.answers||{};keys=d.keys||{};levels=d.levels||{};explanations=d.explanations||{};currentSessionId=d.id||null;const m=d.meta||{};['name','exam','subject','mode','negative'].forEach(k=>{const id={name:'sheetName',exam:'exam',subject:'subject',mode:'sheetMode',negative:'negative'}[k];if(m[k]!==undefined)$(id).value=m[k];});if(m.bookId)$('bookSelect').value=m.bookId;makeRows('answerList','answer');makeRows('keyList','key');}
+updateTimerSummary();
+</script>
+</body>
+</html>
